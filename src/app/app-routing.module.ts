@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'bienvenida',
     loadChildren: () => import('./bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)
   },
+  {
+    path: 'registrop2',
+    loadChildren: () => import('./registrop2/registrop2.module').then( m => m.Registrop2PageModule)
+  },
 
 
 ];

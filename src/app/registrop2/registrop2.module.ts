@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RegistroPageRoutingModule } from './registro-routing.module';
+import { Registrop2PageRoutingModule } from './registrop2-routing.module';
 
-import { RegistroPage } from './registro.page';
+import { Registrop2Page } from './registrop2.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     IonicModule,
-    RegistroPageRoutingModule
+    ReactiveFormsModule,
+    Registrop2PageRoutingModule
   ],
-  declarations: [RegistroPage]
+  declarations: [Registrop2Page]
 })
-export class RegistroPageModule {}
+export class Registrop2PageModule {}
