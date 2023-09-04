@@ -19,15 +19,14 @@ const routes: Routes = [
   {
     path: 'registro',
     loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
-  },  {
-    path: 'bienvenida',
-    loadChildren: () => import('./bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)
   },
   {
-    path: 'registrop2',
-    loadChildren: () => import('./registrop2/registrop2.module').then( m => m.Registrop2PageModule)
+    path: 'bienvenida',
+    loadChildren: () => import('./bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)
+  },  {
+    path: 'ingresardatos',
+    loadChildren: () => import('./ingresardatos/ingresardatos.module').then( m => m.IngresardatosPageModule)
   },
-
 
 ];
 
