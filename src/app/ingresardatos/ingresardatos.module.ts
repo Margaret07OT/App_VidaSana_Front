@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { Registrop2PageRoutingModule } from './registrop2-routing.module';
+import { IngresardatosPageRoutingModule } from './ingresardatos-routing.module';
 
-import { Registrop2Page } from './registrop2.page';
+import { IngresardatosPage } from './ingresardatos.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { Registrop2Page } from './registrop2.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    Registrop2PageRoutingModule
+    IngresardatosPageRoutingModule
   ],
-  declarations: [Registrop2Page]
+  declarations: [IngresardatosPage]
 })
-export class Registrop2PageModule {}
+export class IngresardatosPageModule {}
