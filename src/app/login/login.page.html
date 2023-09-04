@@ -1,9 +1,15 @@
-
 <ion-content color="mycolor">
+  <br>
+  <ion-img
+      src="./assets/img/Logo_Vida_Sana.png"
+      alt="The Wisconsin State Capitol building in Madison, WI at night"
+    ></ion-img>
+    <br><br>
   <ion-card>
-    <ion-card-header>
-      <ion-card-title class="titulo">Iniciar Sesion</ion-card-title>
-    </ion-card-header>
+      <ion-card-header class="centrado">
+        <ion-card-title class="titulo">INICIAR SESIÓN</ion-card-title>
+      </ion-card-header>
+      <br>
     <ion-card-content>
       <form [formGroup]="formularioLogin">
         <ion-item>
@@ -14,7 +20,8 @@
           <ion-input formControlName="contraseña" type="password"></ion-input>
         </ion-item>
       </form>
-        <ion-button (click)="ingresar()">
+      <br><br><br><br><br><br><br><br><br><br><br><br>
+        <ion-button (click)="ingresar()" color="success" expand="block">
           Ingresar
         </ion-button>
     </ion-card-content>
