@@ -1,13 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>bienvenida</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
+<br>
+  <ion-img
+  src="./assets/img/Logo_Vida_Sana.png"
+  alt=""
+  ></ion-img>
 
+<br>
+  <ion-img
+  src="./assets/img/Logo_Vida_Login.png"
+  alt=""
+  class="imagen-personalizada"
+  ></ion-img>
+  <div class="centrado">
 
-      <ion-button [routerLink]="['/login']">Iniciar Sesion</ion-button>
-      <ion-button [routerLink]="['/registro']">Registrarse</ion-button>
+     <h1>Activa tu bienestar y disfruta de una vida saludable</h1>
 
+  </div>
+  <br>
+  <div class="ion-text-center ion-margin-top">
+      <ion-button [routerLink]="['/login']"  color="success" expand="block">Iniciar Sesion</ion-button>
+      <br><br>
+      <ion-button [routerLink]="['/registro']" color="success" expand="block">Registrarse</ion-button>
+  </div>
 </ion-content>

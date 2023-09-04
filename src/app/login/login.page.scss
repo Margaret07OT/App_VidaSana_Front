@@ -1,8 +1,7 @@
-.ion-color-new {
-	--ion-color-base: var(--ion-color-new);
-	--ion-color-base-rgb: var(--ion-color-new-rgb);
-	--ion-color-contrast: var(--ion-color-new-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-new-contrast-rgb);
-	--ion-color-shade: var(--ion-color-new-shade);
-	--ion-color-tint: var(--ion-color-new-tint);
+.centrado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* Alinea el texto horizontalmente en el centro */
+  height: 100%; /* Ajusta la altura del encabezado según tus necesidades */
 }
