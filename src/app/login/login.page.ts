@@ -44,8 +44,8 @@ export class LoginPage implements OnInit {
         console.log('Ingresado');
       } else {
         const alert = await this.alertController.create({
-          header: 'Datos incorrectos',
-          message: 'Los datos que ingresaste son incorrectos.',
+          header: 'Campos Vacios',
+          message: 'INGRESE CORREO ELECTRÓNICO Y/O CONTRASEÑA',
           buttons: ['Aceptar']
         });
 
