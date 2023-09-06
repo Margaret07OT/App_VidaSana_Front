@@ -1,10 +1,12 @@
-<ion-content color="mycolor">
+<ion-content>
   <ion-card>
-    <ion-card-header>
-      <ion-card-title class="titulo">Registrase</ion-card-title>
+    <ion-img
+      src="./assets/img/Logo_Vida_Sana.png"
+      alt="The Wisconsin State Capitol building in Madison, WI at night"
+    ></ion-img>
+    <ion-card-header class="centrado">
+      <ion-card-title class="titulo" >Crear una Cuenta</ion-card-title>
     </ion-card-header>
-    <br>
-    <br>
     <ion-card-content>
       <form [formGroup]="formularioRegistro">
         <ion-item>
@@ -39,7 +41,7 @@
           <ion-input formControlName="numdoc" type="password"></ion-input>
         </ion-item>
       </form>
-        <ion-button  [routerLink]="['/ingresardatos']" (click)="guardar()">
+        <ion-button  [routerLink]="['/ingresardatos']" (click)="guardar()" color="success" shape="round" expand="block">
          Siguiente
         </ion-button>
     </ion-card-content>
