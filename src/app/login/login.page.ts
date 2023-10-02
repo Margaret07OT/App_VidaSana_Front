@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
     private router: Router
   ) {
     this.formularioLogin = this.fb.group({
-      correo: new FormControl('', Validators.required),
+      correo: new FormControl('', [Validators.required, Validators.email]),
       contrasena: new FormControl('', Validators.required),
     });
   }
@@ -28,19 +28,17 @@ export class LoginPage implements OnInit {
 
   async ingresar() {
     try {
-      const f = this.formularioLogin.value;
-
-      // Verificar si los campos están vacíos
-      if (!f.correo || !f.contrasena) {
+      if (this.formularioLogin.invalid) {
         const alert = await this.alertController.create({
-          header: 'Campos vacíos',
-          message: 'Por favor, complete todos los campos.',
+          header: 'Campos inválidos',
+          message: 'Por favor, complete los campos correctamente.',
           buttons: ['Aceptar']
         });
-
         await alert.present();
-        return; // Detener la función si los campos están vacíos
+        return;
       }
+
+      const f = this.formularioLogin.value;
 
       const response: string | undefined = await this.http
         .post(
@@ -50,21 +48,22 @@ export class LoginPage implements OnInit {
         )
         .toPromise();
 
-      if (response === undefined) {
-        console.error('La respuesta de la API es indefinida.');
-        return;
-      }
-
-      if (response === 'Autenticación exitosa') {
-        this.router.navigate(['/principal']);
-        console.log('Ingresado');
-      } else {
+      if (response === 'Credenciales inválidas') {
         const alert = await this.alertController.create({
           header: 'Error de autenticación',
           message: 'Credenciales incorrectas.',
           buttons: ['Aceptar'],
         });
-
+        await alert.present();
+      } else if (response === 'Autenticación exitosa') {
+        this.router.navigate(['/principal']);
+        console.log('Ingresado');
+      } else {
+        const alert = await this.alertController.create({
+          header: 'Error de autenticación',
+          message: 'Otro error de autenticación.',
+          buttons: ['Aceptar'],
+        });
         await alert.present();
       }
     } catch (error) {
