@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -7,58 +9,77 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
 })
-export class RegistroPage implements OnInit {
-
+export class RegistroPage {
   formularioRegistro: FormGroup;
 
-  constructor(public fb: FormBuilder,
-    public alertController: AlertController) {
+  constructor(
+    private fb: FormBuilder,
+    public alertController: AlertController,
+    private http: HttpClient,
+    private router: Router,
+  ) {
     this.formularioRegistro = this.fb.group({
-      'prinom' : new FormControl("", Validators.required),
-      'segnon': new FormControl("", Validators.required),
-      'apepater' : new FormControl("", Validators.required),
-      'apemater': new FormControl("", Validators.required),
-      'contraseña': new FormControl("", Validators.required),
-      'repetircontra': new FormControl("", Validators.required),
-      'documento' : new FormControl("", Validators.required),
-      'numdoc': new FormControl("", Validators.required),
-      'tipoco': new FormControl("", Validators.required),
-      'correo' : new FormControl("", Validators.required),
+      primerNombre: ['', Validators.required],
+      segundoNombre: ['', Validators.required],
+      apellidoPaterno: ['', Validators.required],
+      apellidoMaterno: ['', Validators.required],
+      contrasenaHash: ['', Validators.required],
+      confirmarContrasena: ['', Validators.required],
+      tipoDocumento: ['', Validators.required],
+      documento: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      fechaNacimiento: ['', Validators.required],
+      sexo: ['', Validators.required],
+      altura: ['', Validators.required],
+      peso: ['', Validators.required],
 
     });
   }
 
-  ngOnInit() {
+  async guardar() {
+  const formData = this.formularioRegistro.value;
+
+  if (this.formularioRegistro.invalid) {
+    const alert = await this.alertController.create({
+      header: 'Datos incompletos',
+      message: 'Tienes que llenar todos los datos',
+      buttons: ['Aceptar'],
+    });
+
+    await alert.present();
+    return;
   }
 
-  async guardar(){
-    var f = this.formularioRegistro.value;
+  // Enviar datos a la API
+  const url = 'https://74zy0ksiv3.execute-api.us-east-1.amazonaws.com/Prod/registro/registrar'; // Corregir la URL
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
 
-    if(this.formularioRegistro.invalid){
+  try {
+    const responseText = await this.http.post(url, formData, { responseType: 'text', headers }).toPromise();
+
+    if (responseText === 'Registro guardado exitosamente.') {
+      // La API respondió con éxito
       const alert = await this.alertController.create({
-        header: 'Datos incompletos',
-        message: 'Tienes que llenar todos los datos',
-        buttons: ['Aceptar']
+        header: 'Éxito',
+        message: 'Se regristro correctamente',
+        buttons: ['Aceptar'],
       });
 
       await alert.present();
-      return;
-    }
 
-    var usuario = {
-      prinom: f.prinom,
-      segnon: f.segnon,
-      apepater: f.apepater,
-      apemater: f.apemater,
-      contraseña: f.contraseña,
-      repetircontra: f.repetircontra,
-      documento: f.documento,
-      numdoc: f.numdoc,
-      tipoco: f.tipoco,
-      correo: f.correo
-    }
 
-    localStorage.setItem('usuario',JSON.stringify(usuario));
+      this.router.navigate(['/principal']);
+    } else {
+
+      console.error('Respuesta de la API desconocida:', responseText);
+    }
+  } catch (error) {
+    console.error('Error al enviar los datos a la API:', error);
+
   }
+}
 
 }
+
