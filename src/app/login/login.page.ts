@@ -4,53 +4,65 @@ import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
   formularioLogin: FormGroup;
 
-
-  constructor(public fb: FormBuilder,
+  constructor(
+    public fb: FormBuilder,
     public alertController: AlertController,
     private http: HttpClient,
-    private router: Router) {
+    private router: Router
+  ) {
     this.formularioLogin = this.fb.group({
-     'correo' : new FormControl("", Validators.required),
-     'contrasena': new FormControl("", Validators.required),
+      correo: new FormControl('', Validators.required),
+      contrasena: new FormControl('', Validators.required),
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   async ingresar() {
     try {
       const f = this.formularioLogin.value;
 
+      // Verificar si los campos están vacíos
+      if (!f.correo || !f.contrasena) {
+        const alert = await this.alertController.create({
+          header: 'Campos vacíos',
+          message: 'Por favor, complete todos los campos.',
+          buttons: ['Aceptar']
+        });
 
-      const response: string | undefined = await this.http.post('https://74zy0ksiv3.execute-api.us-east-1.amazonaws.com/Prod/registro/login', f, { responseType: 'text' }).toPromise();
+        await alert.present();
+        return; // Detener la función si los campos están vacíos
+      }
+
+      const response: string | undefined = await this.http
+        .post(
+          'https://74zy0ksiv3.execute-api.us-east-1.amazonaws.com/Prod/registro/login',
+          f,
+          { responseType: 'text' }
+        )
+        .toPromise();
 
       if (response === undefined) {
-
         console.error('La respuesta de la API es indefinida.');
         return;
       }
 
-
       if (response === 'Autenticación exitosa') {
-
-       this.router.navigate(['/principal']);
+        this.router.navigate(['/principal']);
         console.log('Ingresado');
       } else {
         const alert = await this.alertController.create({
           header: 'Error de autenticación',
           message: 'Credenciales incorrectas.',
-          buttons: ['Aceptar']
+          buttons: ['Aceptar'],
         });
 
         await alert.present();
