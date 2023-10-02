@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SubcategoriaPageRoutingModule } from './subcategoria-routing.module';
+import { SubcatepausasPageRoutingModule } from './subcatepausas-routing.module';
 
-import { SubcategoriaPage } from './subcategoria.page';
+import { SubcatepausasPage } from './subcatepausas.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SubcategoriaPageRoutingModule
+    SubcatepausasPageRoutingModule
   ],
-  declarations: [SubcategoriaPage]
+  declarations: [SubcatepausasPage]
 })
-export class SubcategoriaPageModule {}
+export class SubcatepausasPageModule {}

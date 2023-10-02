@@ -1,31 +1,25 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-title size="large" class="titulo">Categoria</ion-title>
-  </ion-toolbar>
-</ion-header>
 <ion-content [fullscreen]="true">
-  <ion-img src="./assets/img/categoriaprincipal.jpg"></ion-img>
- <ion-grid>
-  <ion-row class="ion-justify-content-center">
-    <ion-col>
-      <ion-button shape="round">Pausas activas</ion-button>
-    </ion-col>
-  </ion-row>
- </ion-grid>
+  <br>
+  <div class="centrado">
 
-  <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="home">
-        <ion-icon name="bar-chart-outline"></ion-icon>Progreso</ion-tab-button
-      >
+    <h1>CATEGORIAS</h1>
 
-      <ion-tab-button tab="radio">
-        <ion-icon name="barbell-outline"></ion-icon>Ejercicio</ion-tab-button
-      >
+ </div>
 
-      <ion-tab-button tab="library">
-        <ion-icon name="person-circle-outline"></ion-icon>Perfil</ion-tab-button
-      >
-    </ion-tab-bar>
-  </ion-tabs>
-</ion-content>
+  <br>
+    <ion-img
+    src="./assets/img/Vistacategoria.png"
+    alt=""
+    class="imagen-personalizada"
+    ></ion-img>
+    <br>
+    <br>
+    <br>
+    <div class="ion-text-center ion-margin-top">
+        <ion-button [routerLink]="['/subcatepausas']"  color="success" expand="block" shape="round">PAUSAS ACTIVAS</ion-button>
+        <br><br>
+        <ion-button [routerLink]="['/registro']" color="success" expand="block" shape="round">EJERCICIOS</ion-button>
+        <br><br>
+        <ion-button [routerLink]="['/registro']" color="success" expand="block" shape="round">CAMINATA</ion-button>
+    </div>
+  </ion-content>

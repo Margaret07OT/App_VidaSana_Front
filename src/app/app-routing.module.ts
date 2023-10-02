@@ -27,9 +27,21 @@ const routes: Routes = [
   {
     path: 'principal',
     loadChildren: () => import('./principal/principal.module').then(m => m.PrincipalPageModule)
-  },  {
+  },
+  {
     path: 'preinico',
     loadChildren: () => import('./preinico/preinico.module').then( m => m.PreinicoPageModule)
+  },
+  {
+    path: 'progreso',
+    loadChildren: () => import('./progreso/progreso.module').then( m => m.ProgresoPageModule )
+  },
+  {
+    path: 'categoria',
+    loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
+  },  {
+    path: 'subcatepausas',
+    loadChildren: () => import('./subcatepausas/subcatepausas.module').then( m => m.SubcatepausasPageModule)
   },
 
 ];
