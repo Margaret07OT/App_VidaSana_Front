@@ -2,9 +2,9 @@
   <br>
   <div class="centrado">
 
-    <h1>CATEGORIAS</h1>
+    <h1><b>CATEGORIAS</b></h1>
     <br>
-    <H4>Pausas Activas</H4>
+    <H4><b>Pausas Activas</b></H4>
  </div>
   <br>
     <ion-img
@@ -16,8 +16,24 @@
     <br>
     <br>
     <div class="ion-text-center ion-margin-top">
-        <ion-button [routerLink]="['/subcatepausas']"  color="success" expand="block" shape="round">ELOGACION</ion-button>
+        <ion-button [routerLink]="['/elogacion']"  color="success" expand="block" shape="round">ELOGACION</ion-button>
         <br><br>
         <ion-button [routerLink]="['/registro']" color="success" expand="block" shape="round">ESTIRAMIENTO</ion-button>
     </div>
   </ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button [routerLink]="['/progreso']">
+        <ion-icon name="bar-chart-outline"></ion-icon>
+        Progreso
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/categoria']" >
+        <ion-icon name="barbell-outline"></ion-icon>
+        Ejercicio
+      </ion-tab-button>
+      <ion-tab-button >
+        <ion-icon name="person-circle-outline"></ion-icon>
+        Perfil
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>

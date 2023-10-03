@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ProgresoPage } from './progreso/progreso.page';
 
 const routes: Routes = [
   {
@@ -34,14 +35,20 @@ const routes: Routes = [
   },
   {
     path: 'progreso',
-    loadChildren: () => import('./progreso/progreso.module').then( m => m.ProgresoPageModule )
+    loadChildren: () => import('./progreso/progreso.module').then( m => m.ProgresoPageModule ),
+
   },
   {
     path: 'categoria',
     loadChildren: () => import('./categoria/categoria.module').then( m => m.CategoriaPageModule)
-  },  {
+  },
+  {
     path: 'subcatepausas',
     loadChildren: () => import('./subcatepausas/subcatepausas.module').then( m => m.SubcatepausasPageModule)
+  },
+  {
+    path: 'elogacion',
+    loadChildren: () => import('./elogacion/elogacion.module').then( m => m.ElogacionPageModule)
   },
 
 ];

@@ -2,7 +2,7 @@
   <br>
   <div class="centrado">
 
-    <h1>CATEGORIAS</h1>
+    <h1><b>CATEGORIAS</b></h1>
 
  </div>
 
@@ -23,3 +23,19 @@
         <ion-button [routerLink]="['/registro']" color="success" expand="block" shape="round">CAMINATA</ion-button>
     </div>
   </ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button [routerLink]="['/progreso']">
+        <ion-icon name="bar-chart-outline"></ion-icon>
+        Progreso
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/categoria']" >
+        <ion-icon name="barbell-outline"></ion-icon>
+        Ejercicio
+      </ion-tab-button>
+      <ion-tab-button >
+        <ion-icon name="person-circle-outline"></ion-icon>
+        Perfil
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
