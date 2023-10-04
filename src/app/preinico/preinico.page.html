@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true">
-  <br>
+
     <ion-img
     src="./assets/img/Logo_Vida_Sana.png"
     alt=""
@@ -22,6 +22,6 @@
     <br>
     <div class="ion-text-center ion-margin-top">
         <br><br>
-        <ion-button [routerLink]="['/progreso']" color="success" expand="block" shape="round">Comenzar</ion-button>
+        <ion-button color="success" (click)="redirectToProgresoPage()" expand="block" shape="round">Comenzar</ion-button>
     </div>
   </ion-content>
