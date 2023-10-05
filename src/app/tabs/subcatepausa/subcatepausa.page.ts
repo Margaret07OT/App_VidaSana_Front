@@ -17,5 +17,9 @@ export class SubcatepausaPage implements OnInit {
     // Navega a la página "ProgressPage" dentro del tab "tabs/tab2"
     this.router.navigate(['./../tabs/elgocacion']);
   }
+  redirectToEstiramientoPage(){
+    // Navega a la página "ProgressPage" dentro del tab "tabs/tab2"
+    this.router.navigate(['./../tabs/estiramiento']);
+  }
 
 }

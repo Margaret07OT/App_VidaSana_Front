@@ -36,6 +36,15 @@ const routes: Routes = [
         path: 'caminata',
         loadChildren: () => import('./caminata/caminata.module').then( m => m.CaminataPageModule)
       },
+      {
+        path: 'aerobicos',
+        loadChildren: () => import('./aerobicos/aerobicos.module').then( m => m.AerobicosPageModule)
+      },
+      {
+        path: 'estiramiento',
+        loadChildren: () => import('./estiramiento/estiramiento.module').then( m => m.EstiramientoPageModule)
+      },
+
     ]
 
   },
@@ -66,6 +75,14 @@ const routes: Routes = [
   {
     path: 'caminata',
     loadChildren: () => import('./caminata/caminata.module').then( m => m.CaminataPageModule)
+  },
+  {
+    path: 'aerobicos',
+    loadChildren: () => import('./aerobicos/aerobicos.module').then( m => m.AerobicosPageModule)
+  },
+  {
+    path: 'estiramiento',
+    loadChildren: () => import('./estiramiento/estiramiento.module').then( m => m.EstiramientoPageModule)
   },
 
 ];
