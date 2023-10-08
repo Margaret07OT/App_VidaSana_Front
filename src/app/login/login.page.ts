@@ -61,7 +61,7 @@ export class LoginPage implements OnInit {
       } else {
         const alert = await this.alertController.create({
           header: 'Error de autenticación',
-          message: 'Otro error de autenticación.',
+          message: 'Otro error de autenticación',
           buttons: ['Aceptar'],
         });
         await alert.present();

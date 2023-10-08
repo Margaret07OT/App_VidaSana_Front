@@ -37,49 +37,64 @@ export class RegistroPage {
   }
 
   async guardar() {
-  const formData = this.formularioRegistro.value;
+    const formData = this.formularioRegistro.value;
 
-  if (this.formularioRegistro.invalid) {
-    const alert = await this.alertController.create({
-      header: 'Datos incompletos',
-      message: 'Tienes que llenar todos los datos',
-      buttons: ['Aceptar'],
-    });
-
-    await alert.present();
-    return;
-  }
-
-  // Enviar datos a la API
-  const url = 'https://74zy0ksiv3.execute-api.us-east-1.amazonaws.com/Prod/registro/registrar'; // Corregir la URL
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-  });
-
-  try {
-    const responseText = await this.http.post(url, formData, { responseType: 'text', headers }).toPromise();
-
-    if (responseText === 'Registro guardado exitosamente.') {
-      // La API respondió con éxito
+    if (this.formularioRegistro.invalid) {
       const alert = await this.alertController.create({
-        header: 'Éxito',
-        message: 'Se regristro correctamente',
+        header: 'Datos incompletos',
+        message: 'Tienes que llenar todos los datos',
         buttons: ['Aceptar'],
       });
 
       await alert.present();
-
-
-      this.router.navigate(['/principal']);
-    } else {
-
-      console.error('Respuesta de la API desconocida:', responseText);
+      return;
     }
-  } catch (error) {
-    console.error('Error al enviar los datos a la API:', error);
+
+    const url = 'https://74zy0ksiv3.execute-api.us-east-1.amazonaws.com/Prod/registro/registrar';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    try {
+      const response: any = await this.http.post(url, formData, { headers }).toPromise();
+
+      if (response === 'El correo ya está registrado.') {
+
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'El correo electrónico ya está registrado.',
+          buttons: ['Aceptar'],
+        });
+
+        await alert.present();
+      } else if (response === 'Registro guardado exitosamente.') {
+
+        const alert = await this.alertController.create({
+          header: 'Éxito',
+          message: 'Se registró correctamente',
+          buttons: ['Aceptar'],
+        });
+
+        await alert.present();
+
+        this.router.navigate(['/principal']);
+      } else {
+        console.error('Respuesta de la API desconocida:', response);
+      }
+    } catch (error: any) {
+      if (error.status === 400) {
+
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'El correo electrónico ya está registrado.',
+          buttons: ['Aceptar'],
+        });
+
+        await alert.present();
+      } else {
+        console.error('Error al enviar los datos a la API:', error);
+      }
+    }
 
   }
 }
-
-}
-
