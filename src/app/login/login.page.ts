@@ -70,7 +70,7 @@ export class LoginPage implements OnInit {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         const alert = await this.alertController.create({
           header: 'Error de autenticación',
-          message: 'Credenciales incorrectas.',
+          message: 'Correo no registrado',
           buttons: ['Aceptar'],
         });
         await alert.present();
