@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -25,9 +23,8 @@ export class LoginPage implements OnInit {
       contrasena: new FormControl('', Validators.required),
     });
   }
-  ngOnInit() {
 
-  }
+  ngOnInit() {}
 
   async ingresar() {
     try {
@@ -43,39 +40,34 @@ export class LoginPage implements OnInit {
 
       const f = this.formularioLogin.value;
 
-      try {
-        const response: any = await firstValueFrom(
-          this.http.post(
-            'https://74zy0ksiv3.execute-api.us-east-1.amazonaws.com/Prod/registro/login',
-            f,
-            { observe: 'response' }
-          )
-        );
+      const response: string | undefined = await this.http
+        .post(
+          'https://74zy0ksiv3.execute-api.us-east-1.amazonaws.com/Prod/registro/login',
+          f,
+          { responseType: 'text' }
+        )
+        .toPromise();
 
-        if (response.status === 401) {
-          const alert = await this.alertController.create({
-            header: 'Error de autenticación',
-            message: 'Credenciales incorrectas.',
-            buttons: ['Aceptar'],
-          });
-          await alert.present();
-        } else if (response.status === 200 && response.body === 'Autenticación exitosa') {
-          this.router.navigate(['/principal']);
-          console.log('Ingresado');
-        } else {
-          const alert = await this.alertController.create({
-            header: 'Error de autenticación',
-            message: 'Otro error de autenticación',
-            buttons: ['Aceptar'],
-          });
-          await alert.present();
-        }
-      } catch (error) {
-        console.error('Error al ingresar:', error);
+      if (response === 'Credenciales inválidas') {
+        const alert = await this.alertController.create({
+          header: 'Error de autenticación',
+          message: 'Credenciales incorrectas.',
+          buttons: ['Aceptar'],
+        });
+        await alert.present();
+      } else if (response === 'Autenticación exitosa') {
+        this.router.navigate(['/principal']);
+        console.log('Ingresado');
+      } else {
+        const alert = await this.alertController.create({
+          header: 'Error de autenticación',
+          message: 'Otro error de autenticación',
+          buttons: ['Aceptar'],
+        });
+        await alert.present();
       }
     } catch (error) {
       console.error('Error al ingresar:', error);
     }
   }
-
 }
