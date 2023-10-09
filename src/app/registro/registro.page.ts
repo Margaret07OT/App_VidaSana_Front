@@ -32,7 +32,6 @@ export class RegistroPage {
       sexo: ['', Validators.required],
       altura: ['', Validators.required],
       peso: ['', Validators.required],
-
     });
   }
 
@@ -56,45 +55,31 @@ export class RegistroPage {
     });
 
     try {
-      const response: any = await this.http.post(url, formData, { headers }).toPromise();
+      const response: any = await this.http.post(url, formData, { headers, responseType: 'text' }).toPromise();
 
-      if (response === 'El correo ya está registrado.') {
-
-        const alert = await this.alertController.create({
-          header: 'Error',
-          message: 'El correo electrónico ya está registrado.',
-          buttons: ['Aceptar'],
-        });
-
-        await alert.present();
-      } else if (response === 'Registro guardado exitosamente.') {
-
+      if (response === 'Registro guardado exitosamente.') {
         const alert = await this.alertController.create({
           header: 'Éxito',
           message: 'Se registró correctamente',
           buttons: ['Aceptar'],
         });
-
         await alert.present();
-
         this.router.navigate(['/principal']);
       } else {
         console.error('Respuesta de la API desconocida:', response);
       }
     } catch (error: any) {
+      console.error('Error al enviar los datos a la API:', error);
+      // Puedes manejar otros tipos de errores aquí
       if (error.status === 400) {
-
         const alert = await this.alertController.create({
           header: 'Error',
           message: 'El correo electrónico ya está registrado.',
           buttons: ['Aceptar'],
         });
-
         await alert.present();
-      } else {
-        console.error('Error al enviar los datos a la API:', error);
       }
     }
-
   }
 }
+
