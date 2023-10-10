@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Contador de Pasos
+      Caminata
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,10 +9,13 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Contador de Pasos</ion-card-title>
+      <ion-card-title>Pasos Recorridos</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p>Pasos: {{ stepCount }}</p>
     </ion-card-content>
   </ion-card>
+  <ion-button (click)="inicioFin()" color="success" expand="block" shape="round">Iniciar Caminata</ion-button>
+<br><br>
+<div id="map" style="height: 300px;"></div>
 </ion-content>
