@@ -6,6 +6,16 @@ const config: CapacitorConfig = {
   webDir: 'www',
   server: {
     androidScheme: 'https'
+  },
+  "plugins": {
+    "@capacitor-community/google-maps": {
+      "apiKey": "AIzaSyD_H5cyWMb3pkmTyx_2Oz-Lm4tYoj5cu4k"
+
+    },
+    "Geolocation": {
+      "forceShowDialog": true
+    }
+
   }
 };
 

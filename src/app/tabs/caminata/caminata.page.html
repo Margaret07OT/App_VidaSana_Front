@@ -1,3 +1,5 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_H5cyWMb3pkmTyx_2Oz-Lm4tYoj5cu4k"></script>
+
 <ion-header>
   <ion-toolbar>
     <ion-title>
@@ -15,7 +17,10 @@
       <p>Pasos: {{ stepCount }}</p>
     </ion-card-content>
   </ion-card>
+  <br><br>
+
   <ion-button (click)="inicioFin()" color="success" expand="block" shape="round">Iniciar Caminata</ion-button>
-<br><br>
-<div id="map" style="height: 300px;"></div>
+<br>
+
+<div #map id="map"></div>
 </ion-content>
