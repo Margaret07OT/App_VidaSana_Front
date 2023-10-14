@@ -14,6 +14,8 @@ export class CaminataPage implements OnInit, AfterViewInit {
   stepCount: number = 0;
   private isListening: boolean = false;
   private deviceMotionHandler: (event: DeviceMotionEvent) => void;
+  private routeCoordinates: any = [];
+  private googleMapsInitialized: boolean = false;
 
   constructor() {
     this.deviceMotionHandler = (event: DeviceMotionEvent) => {};
@@ -49,11 +51,33 @@ export class CaminataPage implements OnInit, AfterViewInit {
   }
 
   handleDeviceMotion(event: DeviceMotionEvent) {
-    if (event.accelerationIncludingGravity) {
+    if (this.googleMapsInitialized && event.accelerationIncludingGravity) {
       const z = event.accelerationIncludingGravity.z;
       if (z !== null && !isNaN(z) && z > 9.81) {
         this.stepCount++;
+
+        if (this.stepCount === 1) {
+          this.routeCoordinates = [];
+        }
+        Geolocation.getCurrentPosition().then(coordinates => {
+          const location = new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude);
+          this.routeCoordinates.push(location);
+          this.updateRouteOnMap();
+        });
       }
+    }
+  }
+
+  updateRouteOnMap() {
+    if (this.googleMapsInitialized && this.map && this.routeCoordinates.length > 1) {
+      const routePath = new google.maps.Polyline({
+        path: this.routeCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+      routePath.setMap(this.map);
     }
   }
 
@@ -63,8 +87,10 @@ export class CaminataPage implements OnInit, AfterViewInit {
 
   async getAndShowLocation() {
     if (this.mapElement) {
+
       const coordinates = await Geolocation.getCurrentPosition();
       const myLocation = new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude);
+
 
       const mapOptions = {
         zoom: 15,
@@ -79,6 +105,7 @@ export class CaminataPage implements OnInit, AfterViewInit {
         map: this.map,
         title: 'Mi ubicación'
       });
+      this.startListening();
     } else {
       console.error('Elemento del mapa no encontrado.');
     }
@@ -89,6 +116,7 @@ export class CaminataPage implements OnInit, AfterViewInit {
       const googleMapsScript = document.createElement('script');
       googleMapsScript.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD_H5cyWMb3pkmTyx_2Oz-Lm4tYoj5cu4k';
       googleMapsScript.onload = () => {
+        this.googleMapsInitialized = true;
         this.getAndShowLocation();
       };
       document.body.appendChild(googleMapsScript);
