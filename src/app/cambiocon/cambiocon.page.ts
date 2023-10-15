@@ -60,22 +60,33 @@ export class CambioconPage implements OnInit {
     this.http
     .put('https://74zy0ksiv3.execute-api.us-east-1.amazonaws.com/Prod/registro/cambiocon', data, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      responseType: 'text', // Indicar que esperas una respuesta de tipo texto
+      responseType: 'text',
     })
     .subscribe(
-      (response) => {
-        // Éxito: La solicitud se envió y se recibió una respuesta.
+      async (response) => {
+
         console.log('Éxito', response);
 
         if (response === 'Contraseñas cambiadas exitosamente') {
-          // Comprueba el mensaje recibo directamente.
-          this.router.navigate(['/principal']);
+          const successAlert = await this.alertController.create({
+            header: 'Éxito',
+            message: 'Contraseña modificada',
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this.router.navigate(['/principal']);
+                }
+              }
+            ],
+          });
+          await successAlert.present();
         } else {
           console.log('Respuesta inesperada:', response);
         }
       },
       (error) => {
-        // Error: La solicitud no se pudo completar.
+
         console.error('Error', error);
       }
     );
