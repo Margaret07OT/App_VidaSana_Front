@@ -9,7 +9,7 @@ const config: CapacitorConfig = {
   },
   "plugins": {
     "@capacitor-community/google-maps": {
-      "apiKey": "AIzaSyD_H5cyWMb3pkmTyx_2Oz-Lm4tYoj5cu4k"
+      "apiKey": "AIzaSyBQGwKaF5rGQ1V-2b1930ljhjx_4ZUqLgM"
 
     },
     "Geolocation": {

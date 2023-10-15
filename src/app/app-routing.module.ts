@@ -39,8 +39,14 @@ const routes: Routes = [
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
   },
-
-
+  {
+    path: 'restablecer',
+    loadChildren: () => import('./restablecer/restablecer.module').then( m => m.RestablecerPageModule)
+  },
+  {
+    path: 'cambiocon/:correo',
+    loadChildren: () => import('./cambiocon/cambiocon.module').then( m => m.CambioconPageModule)
+  },
 
 ];
 

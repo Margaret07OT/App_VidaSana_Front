@@ -26,7 +26,7 @@ export class CaminataPage implements OnInit, AfterViewInit {
     this.deviceMotionHandler = this.handleDeviceMotion.bind(this);
   }
 
-  inicioFin() {
+  async inicioFin() {
     if (this.isListening) {
       this.stopListening();
     } else {
@@ -34,23 +34,34 @@ export class CaminataPage implements OnInit, AfterViewInit {
     }
   }
 
-  startListening() {
+  async startListening() {
     if ('DeviceMotionEvent' in window && !this.isListening) {
       window.addEventListener('devicemotion', this.deviceMotionHandler);
       this.isListening = true;
+      this.routeCoordinates = [];
+      this.resetStepCount();
+      const coordinates = await Geolocation.getCurrentPosition();
+      const myLocation = new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude);
+
+      const marker = new google.maps.Marker({
+        position: myLocation,
+        map: this.map,
+        title: 'Mi ubicación'
+      });
+
     } else {
       console.error('Device Motion not supported on this device or already listening.');
     }
   }
 
-  stopListening() {
+  async stopListening() {
     if (this.isListening) {
       window.removeEventListener('devicemotion', this.deviceMotionHandler);
       this.isListening = false;
     }
   }
 
-  handleDeviceMotion(event: DeviceMotionEvent) {
+  async handleDeviceMotion(event: DeviceMotionEvent) {
     if (this.googleMapsInitialized && event.accelerationIncludingGravity) {
       const z = event.accelerationIncludingGravity.z;
       if (z !== null && !isNaN(z) && z > 9.81) {
@@ -63,6 +74,7 @@ export class CaminataPage implements OnInit, AfterViewInit {
           const location = new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude);
           this.routeCoordinates.push(location);
           this.updateRouteOnMap();
+          console.log('Coordenadas actualizadas:', coordinates.coords.latitude, coordinates.coords.longitude);
         });
       }
     }
@@ -87,10 +99,10 @@ export class CaminataPage implements OnInit, AfterViewInit {
 
   async getAndShowLocation() {
     if (this.mapElement) {
-
       const coordinates = await Geolocation.getCurrentPosition();
-      const myLocation = new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude);
+      console.log('Coordenadas obtenidas:', coordinates.coords.latitude, coordinates.coords.longitude);
 
+      const myLocation = new google.maps.LatLng(coordinates.coords.latitude, coordinates.coords.longitude);
 
       const mapOptions = {
         zoom: 15,
@@ -111,10 +123,11 @@ export class CaminataPage implements OnInit, AfterViewInit {
     }
   }
 
+
   ngAfterViewInit() {
     if (this.mapElement) {
       const googleMapsScript = document.createElement('script');
-      googleMapsScript.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD_H5cyWMb3pkmTyx_2Oz-Lm4tYoj5cu4k';
+      googleMapsScript.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBQGwKaF5rGQ1V-2b1930ljhjx_4ZUqLgM';
       googleMapsScript.onload = () => {
         this.googleMapsInitialized = true;
         this.getAndShowLocation();

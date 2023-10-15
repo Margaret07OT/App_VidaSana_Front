@@ -1,0 +1,24 @@
+<ion-content>
+  <br>
+  <ion-img src="./assets/img/Logo_Vida_Sana.png"></ion-img>
+  <br><br><br><br>
+  <div class="centrado">
+    <h1>Restablecer Contraseña</h1>
+  </div>
+  <br><br><br>
+  <form [formGroup]="formulariocambio" class="formulario" (ngSubmit)="cambio()">
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input formControlName="contrasenaHash" id="contrasenaHash" type="password"></ion-input>
+    </ion-item>
+<br><br>
+    <ion-item>
+      <ion-label position="floating">Confirmar Contraseña</ion-label>
+      <ion-input formControlName="confirmarContrasena" id="confirmarContrasena" type="password"></ion-input>
+    </ion-item>
+    <br><br><br><br><br><br>
+    <ion-button (click)="cambio()"  type="submit" color="success" expand="block" shape="round">
+      Restablecer Contraseña
+    </ion-button>
+  </form>
+</ion-content>
